@@ -45,12 +45,14 @@ on({ id: 'modbus.0.holdingRegisters.1.40351_ChaState', change: 'lt' },
         const priceNow = awattar.filter((p) => p.start_timestamp < Date.now() && p.end_timestamp > Date.now())[0].marketprice;
         /*Geschätzte Energie (morgen)*/
         const kwhTomorrow = getState('pvforecast.0.summary.energy.tomorrow').val;
+        /*Geschätzte Energie (heute)*/
+        const kwhToday = getState('pvforecast.0.summary.energy.today').val;
         console.log('Awattar');
         console.log('kWh Tomorrow: ' + kwhTomorrow);
         console.log('Price Now: ' + priceNow);
         console.log('SOC: ' + soc);
         console.log('Car Charging: ' + carCharging);
-        if (soc < 5000 && priceNow < 100 && kwhTomorrow < 10 ) {
+        if (soc < 5000 && priceNow < 100 && kwhToday < 10 ) {
             charge();
         } else if(!carCharging){
             discharge();
