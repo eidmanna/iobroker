@@ -35,8 +35,8 @@ on({ id: 'go-e.0.energy.power', change: 'ne' },
         }
     }
 );
-/*Currently available energy as a percent of the capacity rating*/
-schedule('{"time":{"start":"00:00","end":"23:59","mode":"minutes","interval":1},"period":{"days":1}}',
+
+schedule('{"time":{"start":"00:00","end":"23:59","mode":"minutes","interval":10},"period":{"days":1}}',
     // on({ id: 'modbus.0.holdingRegisters.1.40351_ChaState', change: 'ne' },
 
     (obj) => {
@@ -87,7 +87,7 @@ schedule('{"time":{"start":"00:00","end":"23:59","mode":"minutes","interval":1},
 
         
 
-        console.log('SOC: ' + soc + ' Wh Tomorrow: ' + kwhTomorrow + ' kWh Today: ' + kwhToday + ' kWh Price Now: ' + priceNow + ' € Car Charging: ' + carCharging);
+        console.log('SOC: ' + soc + ' Wh Tomorrow: ' + kwhTomorrow + ' kWh Today: ' + kwhToday + ' kWh Price Now: ' + priceNow + ' € Car Charging: ' + carCharging + ' Anz Awattarpreise: ' + awattar.length);
         console.log('AvgPrice: ' + avgPrice + ' StdDev: ' + stdDevPrice + ' MaxPrice: ' + maxPrice.marketprice + ' MinPrice: ' + minPrice.marketprice + ' aktuelle Stunde: ' + stunde + ' LowPriceRange: ' + lowPriceRange + ' MidPriceRange: ' + midPriceRange);
 
         // nur bei schlechtem Wetter
