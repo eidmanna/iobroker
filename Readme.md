@@ -1,6 +1,6 @@
 # Controlling Fronius Inverter Battery with ioBroker
 
-This script enables the control of the inverter battery (in this case Fronius and BYD Battery) and the utilization of Awattar dynamic electricity prices to manage the home battery based on electricity prices, weather and the use of the ev wallbox. The code runs under ioBroker.
+This script enables the control of the inverter battery (in this case Fronius and BYD Battery) to manage the home battery based on dynamic electricity prices (awattar), weather and the use of the ev wallbox. The code runs under ioBroker.
 
 ## Prerequisites
 
