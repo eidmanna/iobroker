@@ -1,4 +1,4 @@
-# Controlling Fronius Inverter and Awattar Prices with ioBroker
+# Controlling Fronius Inverter Batterie with ioBroker
 
 This project enables the control of the Fronius inverter and the utilization of Awattar electricity prices to manage the home battery based on electricity prices and other factors. The code runs under ioBroker.
 
