@@ -1,3 +1,6 @@
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eidmanna/iobroker/blob/master/README.md)
+[![de](https://img.shields.io/badge/lang-de-yellow.svg)](https://github.com/eidmanna/iobroker/blob/master/README.de.md)
+
 # Controlling Fronius Inverter Battery with ioBroker
 
 This script enables the control of the inverter battery (in this case Fronius and BYD Battery) to manage the home battery based on dynamic electricity prices (awattar), weather and the use of the ev wallbox. The code runs under ioBroker.
