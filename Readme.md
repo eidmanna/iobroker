@@ -1,4 +1,4 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eidmanna/iobroker/blob/master/README.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/eidmanna/iobroker/blob/master/Readme.md)
 [![de](https://img.shields.io/badge/lang-de-yellow.svg)](https://github.com/eidmanna/iobroker/blob/master/README.de.md)
 
 # Controlling Fronius Inverter Battery with ioBroker
