@@ -3,7 +3,7 @@
 
 # Controlling Fronius Inverter Battery with ioBroker
 
-This script enables the control of the inverter battery (in this case Fronius and BYD Battery) to manage the home battery based on dynamic electricity prices (awattar), weather and the use of the ev wallbox. The code runs under ioBroker.
+This script enables the control of the inverter battery (in this case Fronius and BYD Battery) to manage the home battery based on dynamic electricity prices (awattar), weather and the use of the ev wallbox. The code runs under ioBroker. The code uses the node names of my adapters. Of cource you have to change it for your specific adapters.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ To successfully use this project, the following prerequisites must be met:
 
 - ioBroker: Ensure that ioBroker is installed and set up on your system.
 
-- **Inverter Adapter:** The inverter adapter must be installed in ioBroker to access the Fronius inverter.
+- **Inverter Adapter:** The inverter adapter must be installed in ioBroker to access the Fronius inverter. The inverter must be able to charge your battery with grid power.
 
 - **Wallbox Adapter:** The wallbox adapter must be installed in ioBroker to obtain information about electric vehicle charging.
 
