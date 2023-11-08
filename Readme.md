@@ -15,6 +15,8 @@ To successfully use this project, the following prerequisites must be met:
 
 - **Wallbox Adapter:** The wallbox adapter must be installed in ioBroker to obtain information about electric vehicle charging.
 
+- Install the pvforcast adapter in iobroker.
+
 ## Usage
 
 1. Open the ioBroker interface.
