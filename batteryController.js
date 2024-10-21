@@ -23,7 +23,7 @@ const limitkWhBadWeather = 20;
 
 // Lade- und Entladezeiten festlegen
 const chargeHours = 2; // Anzahl der Stunden zum Laden
-const dischargeHours = 3; // Anzahl der Stunden zum Entladen
+const dischargeHours = 4; // Anzahl der Stunden zum Entladen
 
 let previousBatteryMode = null; // Speichert den vorherigen Modus der Batterie
 
@@ -35,14 +35,14 @@ const charge = "CHARGE";
 const discharge = "DISCHARGE";
 const deactivated = "DEACTIVATED";
 
-
+let goodWeatherState = true;
 
 // Funktion zur Filterung der Preisdaten bis zum nächsten Zeitplan
 function filterPricesUntilNextSchedule(prices, currentTime) {
     const nextTime = getNextScheduleTime(currentTime);
     return prices.filter(hour => {
         const hourTime = new Date(hour.start_timestamp).getTime();
-        return hourTime >= currentTime.getTime() && hourTime <= nextTime.getTime();
+        return hourTime >= currentTime.getTime() && hourTime < nextTime.getTime();
     });
 }
 
@@ -56,7 +56,7 @@ function getNextScheduleTime(currentTime) {
     } else {
         // Wenn wir nach 14:30 sind, ist der nächste Zeitplan 24:00 Uhr
         nextTime.setDate(nextTime.getDate() + 1); // Nächster Tag
-        nextTime.setHours(0, 30, 0, 0); // Setze auf 24:00 Uhr (Mitternacht)
+        nextTime.setHours(0, 0, 0, 0); // Setze auf 24:00 Uhr (Mitternacht)
     }
     return nextTime;
 }
@@ -73,7 +73,7 @@ function chargeBattery() {
     currentBatteryMode = charge;
 
     // Batterie nach einer Stunde deaktivieren
-    setTimeout(deactivateBattery, 60 * 60 * 1000); // 60 Minuten = 1 Stunde
+    setTimeout(deactivateBattery, 59 * 60 * 1000); // 59 Minuten = 1 Stunde
 }
 
 // Funktion zum Entladen der Batterie
@@ -87,7 +87,7 @@ function dischargeBattery() {
     // Batterie nach einer Stunde deaktivieren
     currentBatteryMode = discharge;
     if (!goodWeather())
-        setTimeout(deactivateBattery, 60 * 60 * 1000); // 60 Minuten = 1 Stunde
+        setTimeout(deactivateBattery, 59 * 60 * 1000); // 59 Minuten = 1 Stunde
 }
 
 // Funktion zum Deaktivieren der Batterie (weder Laden noch Entladen)
@@ -136,7 +136,8 @@ function goodWeather() {
     console.log("Weather kWh today: " + kwhToday);
     console.log("Weather kWh tomorrow: " + kwhTomorrow);
 
-    return kwhToday > limitkWhBadWeather;
+    goodWeatherState = kwhToday > limitkWhBadWeather; 
+    return goodWeatherState;
 }
 
 // Hauptfunktion: Bestimmen der billigsten und teuersten Stunden
@@ -153,7 +154,7 @@ async function controlBattery() {
         }
 
 
-        const currentTime = new Date(new Date().getTime() + 1000 * 60 * 60); // Aktuelle Zeit
+        const currentTime = new Date(); // Aktuelle Zeit
         const prices = await fetchAWattarPrices();
 
 
