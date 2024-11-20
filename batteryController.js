@@ -23,7 +23,7 @@ const limitkWhBadWeather = 20;
 
 // Lade- und Entladezeiten festlegen
 const chargeHours = 2; // Anzahl der Stunden zum Laden
-const dischargeHours = 4; // Anzahl der Stunden zum Entladen
+const dischargeHours = 3; // Anzahl der Stunden zum Entladen
 
 let previousBatteryMode = null; // Speichert den vorherigen Modus der Batterie
 
@@ -51,12 +51,16 @@ function getNextScheduleTime(currentTime) {
     const nextTime = new Date(currentTime);
 
     // Wenn wir vor 14:30 sind, ist der nächste Zeitplan 14:30 am selben Tag
-    if (currentTime.getHours() < 14 || (currentTime.getHours() === 14 && currentTime.getMinutes() < 30)) {
-        nextTime.setHours(14, 30, 0, 0); // Setze auf 14:30 Uhr
-    } else {
+    if (currentTime.getHours() < 9 || (currentTime.getHours() === 9 && currentTime.getMinutes() < 30)) {
+        nextTime.setHours(9, 30, 0, 0); // Setze auf 9:30 Uhr
+    } else if (currentTime.getHours() >= 20 ) { 
+        nextTime.setDate(nextTime.getDate() + 1); 
+        nextTime.setHours(9, 30, 0, 0)// 9:30 Nächster Tag
+    } 
+    else {
         // Wenn wir nach 14:30 sind, ist der nächste Zeitplan 24:00 Uhr
-        nextTime.setDate(nextTime.getDate() + 1); // Nächster Tag
-        nextTime.setHours(0, 0, 0, 0); // Setze auf 24:00 Uhr (Mitternacht)
+        // nextTime.setDate(nextTime.getDate() + 1); // Nächster Tag
+        nextTime.setHours(20, 0, 0, 0); // Setze auf 24:00 Uhr (Mitternacht)
     }
     return nextTime;
 }
@@ -157,7 +161,7 @@ async function controlBattery() {
         const currentTime = new Date(); // Aktuelle Zeit
         const prices = await fetchAWattarPrices();
 
-
+        console.log(prices);
 
         // Nur die Preisdaten bis zum nächsten Zeitplan berücksichtigen
         const validPrices = filterPricesUntilNextSchedule(prices, currentTime);
@@ -224,13 +228,13 @@ deactivateBattery();
 
 controlBattery();
 
-// Zeitplan für die Ausführung um 14:30 und 24:00 Uhr
+// Zeitplan für die Ausführung um 9:30 und 20:00 Uhr
 
-// Täglich um 14:30 Uhr
-schedule("30 14 * * *", controlBattery);
+// Täglich um 9:30 Uhr
+schedule("30 09 * * *", controlBattery);
 
-// Täglich um 24:00 Uhr (Mitternacht)
-schedule("30 0 * * *", controlBattery);
+// Täglich um 20:30 Uhr (Mitternacht)
+schedule("30 20 * * *", controlBattery);
 
 // Periodische Überprüfung des Auto-Ladestatus alle 30 Sekunden
 schedule("*/10 * * * * *", checkCarChargingStatus);
@@ -238,8 +242,8 @@ schedule("*/10 * * * * *", checkCarChargingStatus);
 // previousBatteryMode = discharge;
 // dischargeBattery();
 
-//previousBatteryMode = charge;
+// previousBatteryMode = charge;
 //chargeBattery();
 
-
+// deactivateBattery();
 
